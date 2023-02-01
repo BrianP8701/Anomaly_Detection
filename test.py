@@ -1,18 +1,15 @@
-from roboflow import Roboflow
-# import Image
+import numpy as np
+import cv2
+import json
 
-rf = Roboflow(api_key="hYI9Q9apb6kNv3sGv8xP")
-project = rf.workspace("brian-przezdziecki-zp5de").project("tipdetectionv1")
-# model = project.version(1).download("yolov8")
-model = project.version(1).model
+img = cv2.imread("/Users/brianprzezdziecki/Research/Mechatronics/Anomaly_Detection/TipDatasetv1/image0.jpg")
 
-# infer on a local image
-print(model.predict("/Users/brianprzezdziecki/Research/Mechatronics/Anomaly_Detection/TipDatasetv1/image200.jpg", confidence=40, overlap=30).json())
+data = json.dumps({'data': img.tolist()})
+data = np.array(json.loads(data)['data']).astype('float32')
 
-# visualize your prediction
-model.predict("/Users/brianprzezdziecki/Research/Mechatronics/Anomaly_Detection/TipDatasetv1/image0.jpg", confidence=40, overlap=30).save("prediction2.jpg")
+data = json.dumps({'data': img.tolist()})
+data = np.array(json.loads(data)['data']).astype('float32')
 
-
-# Image.open('pathToFile').show()
+print(data.shape)
 
 
